@@ -8,7 +8,6 @@ const { verifyToken } = require('../middleware/authMiddleware'); // Importing th
 // Create a new planner for the specified user
 userRouter.post('/new_planner', verifyToken, newPlannerController.createNewPlanner); // Protecting the route with authentication middleware
 
-userRouter.get('/dashboard', verifyToken, dashboardController.renderDashboardPage); // Protecting the route with authentication middleware
 
 userRouter.get('/stock', verifyToken, stockController.getTopStocks); // Protecting the route with authentication middleware
 

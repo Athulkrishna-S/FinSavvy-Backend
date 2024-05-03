@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const session = require('express-session');
-const flash = require('express-flash');
+
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const cors = require('cors');
@@ -17,7 +17,7 @@ const limiter = rateLimit({
   message: 'Too many login attempts from this IP, please try again after 15 minutes',
 });
 
-app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
+
 app.use(flash());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -27,7 +27,6 @@ app.use(cors());
 app.use('/login', limiter);
 
 app.use(mongoSanitize()); // prevent mongoDB Injection
-
 app.use('/auth', authRouter); // Routes for authentication: signup, login, logout
 app.use('/api/:username', userRouter); // Routes for specific user operations
 
