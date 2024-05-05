@@ -10,7 +10,7 @@ async function isTokenBlacklisted(token) {
 // Token creator
 function createToken(id, username, phone) {
   let tok = jwt.sign({ userId: id, username, phone }, process.env.JWT_TOKEN, { expiresIn: '7d' });
-  addToken(id, tok);
+
   return tok;
 }
 
@@ -73,13 +73,13 @@ async function logout(req, res) {
     const token = req.headers.authorization;
     if (token) {
       blacklist.add(token);
-      res.status(200).json({ message: 'Logged out successfully' });
+      res.status(200).json({ status: 200, message: 'Logout successful', token: '' });
+
     } else {
       res.status(401).json({ message: 'No token provided' });
     }
 
     // Respond with success message
-    res.status(200).json({ status: 200, message: 'Logout successful', token: '' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ status: 500, message: error.message });

@@ -20,7 +20,7 @@ const authsignup = async (username, email, password, phone) => {
 
 const authlogin = async (username, password) => {
   // Find the user in the database based on the username
-  const user = await User.findOne({ where: { username } });
+  const user = await User.findOne({  username  });
 
   if (!user) {
     throw new Error('User not found');
