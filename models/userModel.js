@@ -79,5 +79,15 @@ async function getPlanner(userId,id='default'){
     }    
 }
 
-const user = { getTransactions , newPlanner , getPlanner};
+
+async function transactionAnalysis(userId){
+    const result = await transactions.findOne({userId});
+    if(!result)
+    {
+        throw new Error("Error in fetching trnsactions");    
+    }
+    return result.transactions;
+}
+
+const user = { getTransactions , newPlanner , getPlanner ,  transactionAnalysis };
 export default user;
