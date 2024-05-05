@@ -6,7 +6,7 @@ const blacklist = new Set();
 async function isTokenBlacklisted(token) {
   return blacklist.has(token);
 }
-
+console.log("black list ",blacklist);
 // Token creator
 function createToken(id, username, phone) {
   let tok = jwt.sign({ userId: id, username, phone }, process.env.JWT_TOKEN, { expiresIn: '7d' });
