@@ -57,7 +57,12 @@ async function getPlanner(userId){
     if(!result){
         throw new Error("No planner found");
     }
-    return result;
+    const names =[]
+    result.planners.forEach(element => {
+        let data = {"title":element.title,"value":element.current_value,"Maturiy":element.mature_date};
+        names.push(data);
+    });
+    return names;
 }
 
 const user = { getTransactions , newPlanner , getPlanner};

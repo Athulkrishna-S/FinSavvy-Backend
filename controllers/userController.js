@@ -37,7 +37,7 @@ async function getPlanner(req,res){
     const userId = req.userId;
     try{
             const result = await user.getPlanner(userId);
-            res.status(200).json({status : 200, data : result.planners});
+            res.status(200).json({status : 200, data : result});
     }
     catch(error)
     {
