@@ -4,6 +4,9 @@ async function getTransactions(req,res){
 
     const userId = req.userId;
     let condition = req.query.condition;
+    if(condition === undefined){
+        condition = 'all';
+    }
     let month = req.query.month;
     try {
             const result = await user.getTransactions(userId,condition,month);
@@ -16,4 +19,18 @@ async function getTransactions(req,res){
     }
 }
 
-export { getTransactions };
+async function newPlanner(req,res){
+    const userId =req.userId;
+    try{
+            const data = req.body;
+            const result = await user.newPlanner(userId,data);
+            res.status(200).json({status:200,message: result.message});
+    }
+    catch(error)
+    {
+        console.error(error.message);
+        res.status(500).json({status:500,message:error.message});
+    }
+}
+
+export { getTransactions , newPlanner};

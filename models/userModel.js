@@ -1,4 +1,4 @@
-import { transactions } from './database.js';
+import { transactions , planner} from './database.js';
 
 async function getTransactions(userId,condition,month){
 
@@ -31,13 +31,26 @@ async function getTransactions(userId,condition,month){
    //         trans.push(element);
    //     }
    // });
+    const regmonth =new RegExp('^'+month);
+    const tran = result.map(doc => doc.transactions);
+    const trans = tran.filter(doc => regmonth.test(doc.date));
 
-    const trans = result.map(doc => doc.transactions);
-    
-
-
+    if(condition != 'all')
+    {
+        return trans.slice(0,parseInt(condition));
+    }
     return trans;
 }
 
-const user = {getTransactions};
+
+
+async function newPlanner(userId,data){
+    const result = planner.updateOne({userId},{$push : {planners : data}});
+    if(!result){
+        throw new Error("Cannot add planner");
+    }
+    return {message : "succees"};
+}
+
+const user = { getTransactions , newPlanner};
 export default user;

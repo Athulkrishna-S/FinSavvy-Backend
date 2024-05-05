@@ -11,5 +11,5 @@ const db = client.db(process.env.DB_NAME);
 
 const User = db.collection('users');
 const transactions = db.collection('transactions');
-
-export { User , transactions };
+const planner = db.collection('planners')
+export { User , transactions , planner};
