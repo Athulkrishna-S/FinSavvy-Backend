@@ -52,7 +52,7 @@ async function signup(req, res) {
   
   } catch (error) {
     console.error(error);
-    res.status(500).json({ status: 500, error: error.message ,add: "Nothing"  });
+    res.status(500).json({ status: 500, error: error.message });
   }
 }
 
