@@ -52,5 +52,13 @@ async function newPlanner(userId,data){
     return {message : "succees"};
 }
 
-const user = { getTransactions , newPlanner};
+async function getPlanner(userId){
+    const result = await planner.findOne({userId});
+    if(!result){
+        throw new Error("No planner found");
+    }
+    return result;
+}
+
+const user = { getTransactions , newPlanner , getPlanner};
 export default user;

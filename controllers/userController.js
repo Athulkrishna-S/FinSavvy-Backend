@@ -33,4 +33,16 @@ async function newPlanner(req,res){
     }
 }
 
-export { getTransactions , newPlanner};
+async function getPlanner(req,res){
+    const userId = req.userId;
+    try{
+            const result = await user.getPlanner(userId);
+            res.status(200).json({status : 200, data : result.planners});
+    }
+    catch(error)
+    {
+        res.status(500).json({status:500,message:error.message});
+    }
+}
+
+export { getTransactions , newPlanner , getPlanner };
