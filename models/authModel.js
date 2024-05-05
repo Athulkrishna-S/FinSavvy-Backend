@@ -7,15 +7,16 @@ const authsignup = async (username, email, password, phone) => {
   const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
   
   // Save the user details in the database
-  const newUser = await User.insertOne({
-    userId: uuidv4(),
+  const newUserId = uuidv4()
+  const res = await User.insertOne({
+    userId: newUserId,
     username,
     email,
     password: hashedPassword, // Save the hashed password
     phone
   });
-
-  return newUser.userId; // Return the user ID
+ 
+  return newUserId; // Return the user ID
 };
 
 const authlogin = async (username, password) => {

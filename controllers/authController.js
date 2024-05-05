@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { authsignup, authlogin } from '../models/authModel.js'
-
+import { User } from '../models/database.js';
 const blacklist = new Set();
 
 async function isTokenBlacklisted(token) {
@@ -36,10 +36,20 @@ async function signup(req, res) {
     if (!isEmailValid(email)) {
       throw new Error('Invalid email');
     }
+    const user = await User.findOne({username});
+    if(user)
+    {
+        res.status(409).json({ status: 409, success: false, message: 'username already exists' });
+    }
+    else
+    {
 
-    const userId = await authsignup(username, email, password, phone);
-    const token = createToken(userId, username, phone);
-    res.status(201).json({ status: 201, success: true, message: 'Signup successful', token });
+      const userId = await authsignup(username, email, password, phone);
+      //const token = createToken(userId, username, phone);
+      console.log('userId ',userId);
+      res.status(201).json({ status: 201, success: true, message: 'Signup successful', id : userId});
+    }
+  
   } catch (error) {
     console.error(error);
     res.status(500).json({ status: 500, error: error.message ,add: "Nothing"  });
