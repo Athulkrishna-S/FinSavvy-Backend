@@ -4,8 +4,8 @@ async function getTransactions(req,res){
     let condition = req.query.condition;
     let month = req.query.month;
     try {
-            const result = await userId.getTransactions(userId);
-
+            const result = await user.getTransactions(userId,condition,month);
+            res.status(200)
     }
     catch(error)
     {
