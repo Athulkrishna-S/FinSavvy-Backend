@@ -1,4 +1,5 @@
 import { transactions , planner} from './database.js';
+import { v4 as uuidv4 } from 'uuid';
 
 async function getTransactions(userId,condition,month){
 
@@ -45,7 +46,8 @@ async function getTransactions(userId,condition,month){
 
 
 async function newPlanner(userId,data){
-    const result = planner.updateOne({userId},{$push : {planners : data}});
+    const id = uuidv4()
+    const result = planner.updateOne({userId},{$push : {planners : {...data, id }}});
     if(!result){
         throw new Error("Cannot add planner");
     }
@@ -59,7 +61,7 @@ async function getPlanner(userId){
     }
     const names =[]
     result.planners.forEach(element => {
-        let data = {"title":element.title,"value":element.current_value,"Maturiy":element.mature_date};
+        let data = {"title":element.title,"value":element.current_value,"Maturiy":element.mature_date,"id":element.id};
         names.push(data);
     });
     return names;
