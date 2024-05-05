@@ -5,7 +5,7 @@ async function getTransactions(req,res){
     let month = req.query.month;
     try {
             const result = await user.getTransactions(userId,condition,month);
-            res.status(200)
+            res.status(200).json({status : 200, data : result});
     }
     catch(error)
     {

@@ -10,5 +10,6 @@ await client.connect();
 const db = client.db(process.env.DB_NAME);
 
 const User = db.collection('users');
+const transactions = db.collection('transactions');
 
-export { User };
+export { User , transactions };
