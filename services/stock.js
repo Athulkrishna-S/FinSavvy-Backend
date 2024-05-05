@@ -5,7 +5,7 @@ const getTopStocksWithRetry = async (maxRetries = 3) => {
 
     while (retries < maxRetries) {
         try {
-            const apiKey = 'DG7hKVv16v2ultrGKUBlA3q0IawE626W';
+            const apiKey = process.env.STOCK_API;
             const apiUrl = `https://financialmodelingprep.com/api/v3/stock/actives?apikey=${apiKey}&limit=10`;
 
             const response = await axios.get(apiUrl);
