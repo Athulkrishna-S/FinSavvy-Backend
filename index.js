@@ -7,6 +7,7 @@ dotenv.config();
 
 import authRouter from './routes/authRoutes.js'; 
 import userRouter from './routes/userRoutes.js'; 
+import { getTopStocks } from './services/stock.js';
 
 // prevent brute force attack
 const limiter = rateLimit({
@@ -27,6 +28,8 @@ app.use('/login', limiter);
 app.use(mongoSanitize()); // prevent mongoDB Injection
 app.use('/auth', authRouter); // Routes for authentication: signup, login, logout
 app.use('/api/:id', userRouter); // Routes for specific user operations
+
+app.get('/api/stock',getTopStocks);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
