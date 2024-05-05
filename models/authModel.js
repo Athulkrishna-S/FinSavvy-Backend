@@ -1,8 +1,8 @@
-const bcrypt = require('bcrypt');
-const {User} = require('./database'); 
-const { v4: uuidv4 } = require('uuid');
+import bcrypt from 'bcrypt';
+import { User } from './database.js';
+import { v4 as uuidv4 } from 'uuid';
 
-async function signup(username, email, password, phone) {
+const authsignup = async (username, email, password, phone) => {
   // Hash the password before storing it in the database
   const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
   
@@ -16,9 +16,9 @@ async function signup(username, email, password, phone) {
   });
 
   return newUser.userId; // Return the user ID
-}
+};
 
-async function login(username, password) {
+const authlogin = async (username, password) => {
   // Find the user in the database based on the username
   const user = await User.findOne({ where: { username } });
 
@@ -38,6 +38,6 @@ async function login(username, password) {
     username: user.username,
     phone: user.phone
   };
-}
+};
 
-module.exports = { signup, login };
+export { authsignup, authlogin };

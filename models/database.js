@@ -1,8 +1,14 @@
-const {MongoClient}=require('mongodb');
-const client= new MongoClient(process.env.MONGO_URI);
-await client.connect();
-const db=client.db(process.env.DB_NAME);
+import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+dotenv.config();
 
-module.exports={
-    User:db.collection('users')
-};
+
+const client = new MongoClient(process.env.MONGODB_URI);
+
+await client.connect();
+
+const db = client.db(process.env.DB_NAME);
+
+const User = db.collection('users');
+
+export { User };
