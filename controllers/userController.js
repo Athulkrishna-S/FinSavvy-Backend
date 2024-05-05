@@ -1,3 +1,5 @@
+import user from '../models/userModel.js';
+
 async function getTransactions(req,res){
 
     const userId = req.userId;
@@ -13,3 +15,5 @@ async function getTransactions(req,res){
         res.status(500).json({ status: 500, error: error.message });
     }
 }
+
+export { getTransactions };
