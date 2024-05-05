@@ -13,9 +13,10 @@ async function Analyzer(req,res){
                     let year_month = element.date.slice(0,7);
                     if(classes.hasOwnProperty(year_month)){
                         classes[year_month] += element.amount;
+                        classes[year_month] = Math.round(classes[year_month]*100)/100;
                     }
                     else{
-                            classes[year_month] = element.amount;
+                        classes[year_month] = Math.round(element.amount*100)/100;
                     }
                 }        
             });
