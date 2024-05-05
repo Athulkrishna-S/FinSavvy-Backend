@@ -35,9 +35,20 @@ async function newPlanner(req,res){
 
 async function getPlanner(req,res){
     const userId = req.userId;
+    const id =req.query.id;
     try{
+
+        if(id === undefined)
+        {    
+
             const result = await user.getPlanner(userId);
             res.status(200).json({status : 200, data : result});
+        }
+        else
+        {
+            const result = await user.getPlanner(userId,id);
+            res.status(200).json({status : 200, data : result});
+        }
     }
     catch(error)
     {

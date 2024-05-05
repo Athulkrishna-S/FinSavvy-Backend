@@ -54,17 +54,29 @@ async function newPlanner(userId,data){
     return {message : "succees"};
 }
 
-async function getPlanner(userId){
-    const result = await planner.findOne({userId});
-    if(!result){
-        throw new Error("No planner found");
+async function getPlanner(userId,id='default'){
+
+    if(id === 'default') {
+        const result = await planner.findOne({userId});
+        if(!result){
+            throw new Error("No planner found");
+        }
+        const names =[]
+        result.planners.forEach(element => {
+            let data = {"title":element.title,"value":element.current_value,"Maturiy":element.mature_date,"id":element.id};
+            names.push(data);
+        });
+        return names;
     }
-    const names =[]
-    result.planners.forEach(element => {
-        let data = {"title":element.title,"value":element.current_value,"Maturiy":element.mature_date,"id":element.id};
-        names.push(data);
-    });
-    return names;
+    else
+    {
+        const result = await planner.findOne({userId});
+        if(!result){
+            throw new Error("No planner found");
+        }
+        const data = result.planners.find(doc => doc.id === id);
+        return data;
+    }    
 }
 
 const user = { getTransactions , newPlanner , getPlanner};
