@@ -19,7 +19,7 @@ async function getTransactions(userId,condition,month){
             }
         }
     }, // Combine date and time fields into a dateTime field
-    { $sort: { "transactions.dateTime": 1 } } // Sort by dateTime in ascending order
+    { $sort: { "transactions.dateTime": -1 } } // Sort by dateTime in descending order
 ]).toArray();
 
     if(result.length==0){
