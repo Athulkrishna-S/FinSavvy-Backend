@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { User } from './database.js';
+import { User , planner } from './database.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const authsignup = async (username, email, password, phone) => {
@@ -15,7 +15,18 @@ const authsignup = async (username, email, password, phone) => {
     password: hashedPassword, // Save the hashed password
     phone
   });
- 
+
+  if(!res){
+    throw new Error("cannot add user ");
+  }
+
+  const result = await planner.insertOne({userId : newUserId , planners: []});
+
+  if(!result)
+  {
+    throw new Error("cannot add planner doc");
+  }
+  
   return newUserId; // Return the user ID
 };
 
