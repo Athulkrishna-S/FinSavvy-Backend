@@ -1,6 +1,6 @@
 import user from '../models/userModel.js';
 
-async function Analyzer(req,res){
+async function getAnalysisData(req,res){
     const userId = req.userId;
     const category = req.query.category;
     try{
@@ -28,4 +28,13 @@ async function Analyzer(req,res){
     }
 }
 
-export {Analyzer};
+async function getMonthlyData( req , res ){
+    let today = new Date();
+    let year = today.getFullYear();
+    let this_month = today.getMonth()+1; // adding 1 bcz month is zero indexed i.e for may it has 4 instead of 5 
+    const month = `${year}-${this_month.toString().padStart(2,'0')}`; // format 2024-05
+    
+}
+
+
+export {getAnalysisData};
