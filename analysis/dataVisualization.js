@@ -29,12 +29,42 @@ async function getAnalysisData(req,res){
 }
 
 async function getMonthlyData( req , res ){
-    let today = new Date();
-    let year = today.getFullYear();
-    let this_month = today.getMonth()+1; // adding 1 bcz month is zero indexed i.e for may it has 4 instead of 5 
-    const month = `${year}-${this_month.toString().padStart(2,'0')}`; // format 2024-05
-    
+
+    const userId = req.userId;
+    const condition = 'all';
+    const classes = {}
+    let totalincome = 0;
+    let totalexpense = 0;
+    try{
+    // generate current year-month
+        let today = new Date();
+        let year = today.getFullYear();
+        let this_month = today.getMonth()+1; // adding 1 bcz month is zero indexed i.e for may it has 4 instead of 5 
+        const month = `${year}-${this_month.toString().padStart(2,'0')}`; // format 2024-05
+        const result = await user.getTransactions( userId , condition ,month);
+        result.forEach(element => {
+            if(classes.hasOwnProperty(element.category) && element.nature == "expense")
+            {
+                classes[element.category] += element.amount;
+                totalexpense += element.amount;
+            }
+            else if(element.nature === "expense")
+            {
+                classes[element.category] = element.amount;
+                totalexpense += element.amount;
+            }
+            else if(element.nature === "income")
+            {
+                totalincome += element.amount;
+            }
+        });
+        res.status(200).json({status:200 , classes:classes , income : Math.round(totalincome*100)/100 ,expense : Math.round(totalexpense*100)/100});
+    }
+    catch(error){
+        console.error(error.message);
+        res.status(500).json({status:500,message:error.message});
+    }
 }
 
 
-export {getAnalysisData};
+export { getAnalysisData , getMonthlyData };

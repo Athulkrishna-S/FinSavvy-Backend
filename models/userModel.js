@@ -89,5 +89,9 @@ async function transactionAnalysis(userId){
     return result.transactions;
 }
 
+
+
+
+
 const user = { getTransactions , newPlanner , getPlanner ,  transactionAnalysis };
 export default user;
