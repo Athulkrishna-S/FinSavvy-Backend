@@ -56,6 +56,19 @@ async function getPlanner(req,res){
     }
 }
 
+async function deletePlanner(req , res){
+    const userId = req.userId;
+    const id = req.query.planner_id;
+    try {
 
+        const result = await user.deletePlanner(userId , id);
+
+        res.status(200).json({status : 200, message : result});
+        
+    }
+    catch(error){
+        res.status(500).json({status:500,message:error.message});
+    }
+}
 
 export { getTransactions , newPlanner , getPlanner };

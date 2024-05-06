@@ -98,9 +98,28 @@ async function transactionAnalysis(userId){
     return result.transactions;
 }
 
+async function deletePlanner(userId,id)
+{
+    const result = await planner.findOne({userId});
+    
+    if(!result)
+    {
+        throw new Error("Error in deleting");
+    }
+    
+    const newPlanners = result.planners.filter(element => element.id !== id);
+
+    const res = await planner.updateOne({userId},{$set : {planners : newPlanners}});
+
+    if(!res)
+    {
+        throw new Error("Error in deleting");
+    }
+
+    return "Planner Deleted";
+}
 
 
 
-
-const user = { getTransactions , newPlanner , getPlanner ,  transactionAnalysis };
+const user = { getTransactions , newPlanner , getPlanner ,  transactionAnalysis , deletePlanner };
 export default user;
