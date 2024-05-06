@@ -1,4 +1,4 @@
-import { transactions , planner} from './database.js';
+import { transactions , planner , User, installments } from './database.js';
 import { v4 as uuidv4 } from 'uuid';
 
 async function getTransactions(userId,condition,month){
@@ -47,10 +47,19 @@ async function getTransactions(userId,condition,month){
 
 async function newPlanner(userId,data){
     const id = uuidv4()
-    const result = planner.updateOne({userId},{$push : {planners : {...data, id }}});
-    if(!result){
+    const result =await planner.updateOne({userId},{$push : {planners : {...data, id }}});
+    if (result.modifiedCount === 0) {
         throw new Error("Cannot add planner");
     }
+    const user = await User.findOne({userId});
+    let installData ={
+        userId,
+        email:user.email,
+        installment_day:data.installment_day,
+        title : data.title,
+        mature_date : data.mature_date
+    };
+    const ret = await installments.insertOne(installData);
     return {message : "succees"};
 }
 
