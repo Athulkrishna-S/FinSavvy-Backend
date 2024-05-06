@@ -35,7 +35,7 @@ async function newPlanner(req,res){
 
 async function getPlanner(req,res){
     const userId = req.userId;
-    const id =req.query.id;
+    const id =req.query.planner_id;
     try{
 
         if(id === undefined)

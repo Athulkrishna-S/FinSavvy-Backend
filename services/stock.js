@@ -1,14 +1,23 @@
 import axios from 'axios';
-
+import dotenv from 'dotenv';
+dotenv.config();
 const getTopStocksWithRetry = async (maxRetries = 3) => {
     let retries = 0;
 
     while (retries < maxRetries) {
         try {
             const apiKey = process.env.STOCK_API;
-            const apiUrl = `https://financialmodelingprep.com/api/v3/stock/actives?apikey=${apiKey}&limit=10`;
+            const apiUrl = `https://financialmodelingprep.com/api/v3/stock/actives?apikey=${apiKey}`;
 
-            const response = await axios.get(apiUrl);
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
+            const activeStocks = await response.json();
+    
+
+//            const response = await axios.get(apiUrl);
             const topStocks = response.data.mostActiveStock;
 
             const formattedStocks = topStocks.map(stock => ({
