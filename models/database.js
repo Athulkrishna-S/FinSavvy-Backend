@@ -13,6 +13,6 @@ const User = db.collection('users');
 const transactions = db.collection('transactions');
 const planner = db.collection('planners');
 const installments = db.collection('Installement_days');
+const temp = db.collection('temp');
 
-
-export { User , transactions , planner , installments};
+export { User , transactions , planner , installments , temp };
