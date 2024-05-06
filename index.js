@@ -9,6 +9,7 @@ dotenv.config();
 import authRouter from './routes/authRoutes.js'; 
 import userRouter from './routes/userRoutes.js'; 
 import { getTopStocks } from './services/stock.js';
+import dailyInstallments from './utils/dailyInstallements.js';
 
 // prevent brute force attack
 const limiter = rateLimit({
@@ -32,8 +33,9 @@ app.use('/api/:id', userRouter); // Routes for specific user operations
 
 app.get('/api/stock',getTopStocks);
 
+// scheduled to run daily on 8:00 AM
 cron.schedule('0 8 * * * ' , () => {
-
+  dailyInstallments();
 });
 
 

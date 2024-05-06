@@ -18,7 +18,7 @@ const sendEmail = async (to, subject, templateData) => {
   });
 
   // Read the HTML email template file
-  const templateFile = fs.readFileSync('C:/Users/athul/Desktop/mini_project/FinSavvy-Backend/services/emailTemplate.html', 'utf-8');
+  const templateFile = fs.readFileSync('services/emailTemplate.html', 'utf-8');
 
   // Compile the template
   const template = handlebars.compile(templateFile);
@@ -43,21 +43,4 @@ const sendEmail = async (to, subject, templateData) => {
   }
 };
 
-const data = {
-    amount: '10000',
-    name: 'New phone',
-    date : '2024-05-06'
-};
-
-// Call sendEmail function
-sendEmail("21cs097@mgits.ac.in", "FinSavvy Reminder", data)
-  .then(success => {
-    if (success) {
-      console.log('Email sent successfully!');
-    } else {
-      console.log('Failed to send email.');
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+export default sendEmail;
