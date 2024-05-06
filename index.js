@@ -1,6 +1,7 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
+import cron from 'node-cron';
 import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -30,6 +31,11 @@ app.use('/auth', authRouter); // Routes for authentication: signup, login, logou
 app.use('/api/:id', userRouter); // Routes for specific user operations
 
 app.get('/api/stock',getTopStocks);
+
+cron.schedule('0 8 * * * ' , () => {
+
+});
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
