@@ -10,6 +10,8 @@ import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoutes.js'; 
 import { getTopStocks } from './services/stock.js';
 import dailyInstallments from './utils/dailyInstallements.js';
+import { createLinkToken , exchangePublicToken }  from './utils/plaidConnection.js';
+
 
 // prevent brute force attack
 const limiter = rateLimit({
@@ -33,6 +35,8 @@ app.use('/api/:id', userRouter); // Routes for specific user operations
 
 app.get('/api/stock',getTopStocks);
 
+app.post('/create_link_token', createLinkToken);
+app.post('/exchange_public_token' , exchangePublicToken);
 // scheduled to run daily on 8:00 AM
 cron.schedule('0 8 * * * ' , () => {
   dailyInstallments();
