@@ -71,4 +71,4 @@ async function deletePlanner(req , res){
     }
 }
 
-export { getTransactions , newPlanner , getPlanner };
+export { getTransactions , newPlanner , getPlanner ,deletePlanner };
