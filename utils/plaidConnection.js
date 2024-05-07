@@ -1,5 +1,5 @@
 import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
-
+let accessToken;
 const configuration = new Configuration({
   basePath: PlaidEnvironments.sandbox,
   baseOptions: {
@@ -45,7 +45,7 @@ async function exchangePublicToken(req,res){
     });
     // These values should be saved to a persistent database and
     // associated with the currently signed-in user
-    const accessToken = response.data.access_token;
+     accessToken = response.data.access_token;
     console.log("Access token :",accessToken);
     const itemID = response.data.item_id;
     res.status(200).json({ public_token_exchange: 'complete' ,accessToken ,itemID});
@@ -55,6 +55,14 @@ async function exchangePublicToken(req,res){
     console.log("Error in exchange")
     res.status(500).json({status : 500, public_token_exchange: 'not-complete' });
 
+  }
+  finally{
+    const plaidRequest = {
+      access_token: accessToken,
+  };
+  const plaidResponse = await plaidClient.transactionsGet(plaidRequest);
+  console.log("Trans Data :",plaidResponse.data);
+  // add transactions to database
   }
 };
 
