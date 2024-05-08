@@ -43,4 +43,6 @@ const sendEmail = async (to, subject, templateData) => {
   }
 };
 
+
+
 export default sendEmail;
