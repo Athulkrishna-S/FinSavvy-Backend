@@ -57,7 +57,7 @@ app.post('/create_link_token', async function (request, response) {
           client_user_id: 'user',
       },
       client_name: 'Plaid Test App',
-      products: ['auth'],
+      products: ['auth','transactions'],
       language: 'en',
       redirect_uri: 'http://localhost:5176/',
       country_codes: ['US'],
