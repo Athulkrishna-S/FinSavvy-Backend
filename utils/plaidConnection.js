@@ -4,8 +4,8 @@ const configuration = new Configuration({
   basePath: PlaidEnvironments.sandbox,
   baseOptions: {
     headers: {
-      'PLAID-CLIENT-ID': process.env.CLIENT_ID,
-      'PLAID-SECRET': process.env.SECRET,
+      'PLAID-CLIENT-ID': '660c26f5fad8e1001c8826a2',
+      'PLAID-SECRET': '3bbd3b891f4068b1e027f64509e260'
     },
   },
 });
@@ -14,7 +14,7 @@ const plaidClient = new PlaidApi(configuration);
 
 async function createLinkToken(req,res){
   // Get the client_user_id by searching for the current user
-
+  console.log("Link token fun");
   const request = {
     user: {
       // This should correspond to a unique id for the current user.

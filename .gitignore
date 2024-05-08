@@ -132,4 +132,4 @@ dist
 databaseconfig.txt
 test.js
 query-encode.js
-index_plaid.js
+plaid_index.cjs
