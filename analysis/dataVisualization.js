@@ -20,7 +20,16 @@ async function getAnalysisData(req,res){
                     }
                 }        
             });
-            res.status(200).json({status:200,data:classes});
+            const sortedArray = Object.entries(classes)
+            // Sort the array in descending order based on keys
+            .sort(([key1], [key2]) => key2.localeCompare(key1))
+            // Convert the sorted array back to an object
+            .reduce((acc, [key, value]) => {
+                acc[key] = value;
+                return acc;
+            }, {});
+
+            res.status(200).json({status:200,data:sortedArray});
     }
     catch(error){
         console.error(error.message);

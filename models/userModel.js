@@ -72,7 +72,7 @@ async function getPlanner(userId,id='default'){
         }
         const names =[]
         result.planners.forEach(element => {
-            let data = {"title":element.title,"value":element.current_value,"Maturiy":element.mature_date,"id":element.id};
+            let data = {"title":element.title,"value":element.current_value,"Maturity":element.mature_date,"id":element.id};
             names.push(data);
         });
         return names;
